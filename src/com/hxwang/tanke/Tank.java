@@ -1,8 +1,6 @@
 package com.hxwang.tanke;
 
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 /**
  * <H2> 坦克类 </H2>
@@ -13,8 +11,17 @@ import java.awt.event.KeyEvent;
 public class Tank {
     private int x; // 坐标
     private int y; // 坐标
-    private int speed; // 速度
-    private Dir dir; // 方向
+    private int speed = 10; // 速度
+    private Dir dir = Dir.DOWN; // 方向
+    private boolean moving = false;// 是否移动
+
+    public void setMoving(boolean moving) {
+        this.moving = moving;
+    }
+
+    public boolean isMoving() {
+        return moving;
+    }
 
     public Tank(int x, int y, int speed, Dir dir) {
         this.x = x;
@@ -23,11 +30,17 @@ public class Tank {
         this.dir = dir;
     }
 
-    public Tank(){}
+    public Tank() {
+    }
 
     public void paint(Graphics g) {
         g.fillRect(x, y, 50, 50);
-        // 根据坦克的方向让其移动
+        move();
+    }
+
+    // 根据坦克的方向让其移动
+    private void move() {
+        if (!moving) return;
         switch (dir) {
             case LEFT:
                 x -= speed;
