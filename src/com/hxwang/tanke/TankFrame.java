@@ -14,7 +14,9 @@ import java.awt.event.WindowEvent;
  */
 
 public class TankFrame extends Frame {
-    int x = 200, y = 200;
+    int x = 200, y = 200; // 坦克起始的位置
+    Dir dir = Dir.DOWN; // 坦克的默认的方向
+    private static final int SPEED = 10;// 坦克默认的速度
 
     public TankFrame() {
         setSize(800, 600);
@@ -35,7 +37,22 @@ public class TankFrame extends Frame {
     @Override
     public void paint(Graphics g) {
         g.fillRect(x, y, 50, 50);
-        x += 10;
+        // 根据坦克的方向让其移动
+        switch (dir) {
+            case LEFT:
+                x -= SPEED;
+                break;
+            case UP:
+                y -= SPEED;
+                break;
+            case RIGHT:
+                x += SPEED;
+                break;
+            case DOWN:
+                y += SPEED;
+                break;
+        }
+//        x += 10;
     }
 
     class MyKeyListener extends KeyAdapter {
@@ -64,7 +81,9 @@ public class TankFrame extends Frame {
                 default:
                     break;
             }
+            setMainTankDir();
         }
+
 
         // 键盘上的按键松开时调用
         @Override
@@ -86,6 +105,16 @@ public class TankFrame extends Frame {
                 default:
                     break;
             }
+            setMainTankDir();
+        }
+
+        // 判断坦克的方向
+        private void setMainTankDir() {
+            if (bL) dir = Dir.LEFT;
+            if (bU) dir = Dir.UP;
+            if (bR) dir = Dir.RIGHT;
+            if (bD) dir = Dir.DOWN;
+
         }
     }
 }
