@@ -15,6 +15,8 @@ public class Tank {
     private Dir dir = Dir.DOWN; // 方向
     private boolean moving = false;// 是否移动
 
+    private TankFrame tf;
+
     public void setMoving(boolean moving) {
         this.moving = moving;
     }
@@ -23,11 +25,12 @@ public class Tank {
         return moving;
     }
 
-    public Tank(int x, int y, int speed, Dir dir) {
+    public Tank(int x, int y, int speed, Dir dir, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.speed = speed;
         this.dir = dir;
+        this.tf = tf;
     }
 
     public Tank() {
@@ -87,5 +90,9 @@ public class Tank {
 
     public Dir getDir() {
         return dir;
+    }
+
+    public void fire() {
+        tf.b = new Bullet(x,y,this.dir);
     }
 }

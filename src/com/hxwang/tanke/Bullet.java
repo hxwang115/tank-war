@@ -20,7 +20,6 @@ public class Bullet {
         this.y = y;
         this.dir = dir;
     }
-    public Bullet(){}
 
     public void paint(Graphics g){
         Color color = g.getColor();
