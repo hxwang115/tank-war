@@ -7,7 +7,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 /**
- * <H2> </H2>
+ * <H2> 窗口类 </H2>
  *
  * @author hxwang
  * @data 2022/12/3
@@ -15,7 +15,8 @@ import java.awt.event.WindowEvent;
 
 public class TankFrame extends Frame {
 
-    Tank myTank = new Tank(200, 200, 10, Dir.DOWN);
+    Tank myTank = new Tank(200, 200, 5, Dir.DOWN);
+    Bullet b = new Bullet(300,300,Dir.DOWN);
 
     public TankFrame() {
         setSize(800, 600);
@@ -36,6 +37,8 @@ public class TankFrame extends Frame {
     @Override
     public void paint(Graphics g) {
         myTank.paint(g);
+        b.paint(g);
+
     }
 
     class MyKeyListener extends KeyAdapter {
