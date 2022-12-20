@@ -18,7 +18,7 @@ public class Bullet {
     private int x, y;// 坐标
     private Dir dir;// 方向
     private boolean live = true;
-    private TankFrame tf;
+    private final TankFrame tf;
 
     public Bullet(int x, int y, Dir dir, TankFrame tf) {
         this.x = x;
