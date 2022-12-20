@@ -2,6 +2,9 @@ package com.hxwang.tanke;
 
 import java.awt.*;
 
+import static com.hxwang.tanke.TankFrame.GAME_HEIGHT;
+import static com.hxwang.tanke.TankFrame.GAME_WIDTH;
+
 /**
  * <H2> 炮弹类 </H2>
  *
@@ -10,21 +13,28 @@ import java.awt.*;
  */
 
 public class Bullet {
-    private int  speed = 10;// 炮弹的速度
-    private static int WIDTH = 5,HEIGHT = 5;// 炮弹的大小
-    private int x,y;// 坐标
+    private int speed = 10;// 炮弹的速度
+    private static int WIDTH = 5, HEIGHT = 5;// 炮弹的大小
+    private int x, y;// 坐标
     private Dir dir;// 方向
+    private boolean live = true;
+    private TankFrame tf;
 
-    public Bullet(int x, int y, Dir dir) {
+    public Bullet(int x, int y, Dir dir, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.tf = tf;
     }
 
-    public void paint(Graphics g){
+    public void paint(Graphics g) {
+        // 如果子弹消失，将其从容器中删除，防止内存溢出
+        if (!live) {
+            tf.bullets.remove(this);
+        }
         Color color = g.getColor();
         g.setColor(Color.RED);
-        g.fillOval(x,y,WIDTH,HEIGHT);// 正方形的内切圆
+        g.fillOval(x, y, WIDTH, HEIGHT);// 正方形的内切圆
         g.setColor(color);
 
         move();
@@ -46,6 +56,7 @@ public class Bullet {
                 y += speed;
                 break;
         }
+        if (x < 0 || y < 0 || x > GAME_WIDTH || y > GAME_HEIGHT) live = false;
     }
 
     public void setSpeed(int speed) {

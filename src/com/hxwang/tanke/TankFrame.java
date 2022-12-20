@@ -5,6 +5,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <H2> 窗口类 </H2>
@@ -16,7 +18,7 @@ import java.awt.event.WindowEvent;
 public class TankFrame extends Frame {
 
     Tank myTank = new Tank(200, 200, 5, Dir.DOWN, this);
-    Bullet b = new Bullet(300, 300, Dir.DOWN);
+    List<Bullet> bullets = new ArrayList<Bullet>();
     static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
 
     public TankFrame() {
@@ -59,11 +61,19 @@ public class TankFrame extends Frame {
 
     }
 
+    /**
+     * 将所有子弹都画出来
+     *
+     * @author hxwang
+     * @date 2022/12/20
+     */
     @Override
     public void paint(Graphics g) {
+        g.drawString("子弹的数量:"+bullets.size(),10,60);
         myTank.paint(g);
-        b.paint(g);
-
+        for (int i = 0; i < bullets.size(); i++) {
+            bullets.get(i).paint(g);
+        }
     }
 
     class MyKeyListener extends KeyAdapter {
